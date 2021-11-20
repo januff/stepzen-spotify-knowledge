@@ -1,0 +1,1305 @@
+type Spotify_Track {
+  album: String
+  albumInfo(
+      types: String = "MusicAlbum"
+    ): [GoogleKnowledgeGraph_Item]
+    @materializer(
+      query: "googleKnowledgeGraph_search"
+      arguments: [
+        { name: "query" field: "album" }
+      ]
+    )
+  artists: String
+  artistsInfo(
+      types: String = "MusicGroup"
+    ): [GoogleKnowledgeGraph_Item]
+    @materializer(
+      query: "googleKnowledgeGraph_search"
+      arguments: [
+        { name: "query" field: "artists" }
+      ]
+    )
+  name: String
+  trackInfo(
+      types: String = "MusicRelease"
+    ): [GoogleKnowledgeGraph_Item]
+    @materializer(
+      query: "googleKnowledgeGraph_search"
+      arguments: [
+        { name: "query" field: "name" }
+      ]
+    )  
+  duration_ms: Int
+  href: String
+  id: ID!  
+  popularity: Int
+  preview_url: String
+  track_number: Int
+  type: String
+  uri: String
+}
+
+type Query {
+  """
+  Get Spotify Catalog information about artists that match a keyword string.
+  """
+  spotify_Search(
+    """
+    Query keywords and optional filters and operators. E.g., `jazz pop`
+    """
+    q: String
+    limit: Int = 1
+  ): [Spotify_Track]
+    @rest(
+      endpoint: "https://api.spotify.com/v1/search?q=$q&type=track"
+      headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+      setters: [
+        { field: "album", path: "tracks.items[].album.name" }
+        { field: "type", path: "tracks.items[].type" }
+        { field: "uri", path: "tracks.items[].uri" }
+        { field: "href", path: "tracks.href" }
+        { field: "name", path: "tracks.items[].name" }
+        { field: "popularity", path: "tracks.items[].popularity" }
+        { field: "preview_url", path: "tracks.items[].preview_url" }
+        { field: "track_number", path: "tracks.items[].track_number" }
+        { field: "artists", path: "tracks.items[].artists[].name" }
+        { field: "duration_ms", path: "tracks.items[].duration_ms" }
+        { field: "id", path: "tracks.items[].id" }
+      ]
+      configuration: "spotify_config"
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# type Query {
+#   """
+#   This query retrieves information on a track via an id
+#   """
+#   spotify_TrackByID(id: ID!): Spotify_Track
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/tracks/$id"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# external url object
+# (https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject)
+# """
+# type Spotify_ExternalUrl {
+#   spotify: String
+# }
+
+# """
+# External identifiers.
+# https://developer.spotify.com/documentation/web-api/reference/#object-externalidobject
+# """
+# type Spotify_ExternalId {
+#   """
+#   International Article Number.
+#   http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29
+#   """
+#   ean: String
+#   """
+#   International Standard Recording Code.
+#   http://en.wikipedia.org/wiki/International_Standard_Recording_Code
+#   """
+#   isrc: String
+#   """
+#   Universal Product Code.
+#   http://en.wikipedia.org/wiki/Universal_Product_Code
+#   """
+#   upc: String
+# }
+
+# """
+# artist type for Spotify albums list by ID
+# """
+# type Spotify_Albums_List_Artist {
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   name: String
+#   type: String
+#   uri: String
+# }
+
+# """
+# copyright type for Spotify.
+# """
+# type Spotify_Copyright {
+#   text: String
+#   type: String
+# }
+
+# """
+# image type for Spotify
+# """
+# type Spotify_Image {
+#   height: Int
+#   url: String
+#   width: Int
+# }
+
+# """
+# artist G10 type for Spotify albums list by ID
+# """
+# type Spotify_Albums_List_Artist_G10 {
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   name: String
+#   type: String
+#   uri: String
+# }
+
+# """
+# albums list item type for Spotify albums list by ID
+# """
+# type Spotify_Albums_List_Item {
+#   artists: [Spotify_Albums_List_Artist_G10]
+#   available_markets: JSON
+#   disc_number: Int
+#   duration_ms: Int
+#   explicit: Boolean
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   is_local: Boolean
+#   name: String
+#   preview_url: String
+#   track_number: Int
+#   type: String
+#   uri: String
+# }
+
+# """
+# list tracks type for Spotify albums list by ID
+# """
+# type Spotify_Albums_List_Tracks {
+#   href: String
+#   items: [Spotify_Albums_List_Item]
+#   limit: Int
+#   next: String
+#   offset: Int
+#   previous: String
+#   total: Int
+# }
+
+# """
+# albums list type for Spotify albums list by ID
+# """
+# type Spotify_Albums_List_Album {
+#   album_type: String
+#   artists: [Spotify_Albums_List_Artist]
+#   available_markets: JSON
+#   copyrights: [Spotify_Copyright]
+#   external_ids: Spotify_ExternalId
+#   external_urls: Spotify_ExternalUrl
+#   genres: JSON
+#   href: String
+#   id: ID!
+#   images: [Spotify_Image]
+#   label: String
+#   name: String
+#   popularity: Int
+#   release_date: String
+#   release_date_precision: String
+#   total_tracks: Int
+#   tracks: Spotify_Albums_List_Tracks
+#   type: String
+#   uri: String
+# }
+
+# """
+# albums type for Spotify albums list by ID
+# """
+# type Spotify_Albums {
+#   albums: [Spotify_Albums_List_Album]
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on albums via a comma-separated list of ids
+#   """
+#   spotify_AlbumByIDList(ids: String): Spotify_Albums
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/albums?ids=$ids"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# artist type for Spotify album by ID
+# """
+# type Spotify_Albums_By_Id_Artist {
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   name: String
+#   type: String
+#   uri: String
+# }
+
+# """
+# artist G6 type for Spotify album by ID
+# """
+# type Spotify_Albums_By_Id_Artist_G6 {
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   name: String
+#   type: String
+#   uri: String
+# }
+
+# """
+# album item type for Spotify album by ID
+# """
+# type Spotify_Albums_By_Id_Item {
+#   artists: [Spotify_Albums_By_Id_Artist_G6]
+#   available_markets: JSON
+#   disc_number: Int
+#   duration_ms: Int
+#   explicit: Boolean
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   is_local: Boolean
+#   name: String
+#   preview_url: String
+#   track_number: Int
+#   type: String
+#   uri: String
+# }
+
+# """
+# tracks type for Spotify album by ID
+# """
+# type Spotify_Albums_By_Id_Tracks {
+#   href: String
+#   items: [Spotify_Albums_By_Id_Item]
+#   limit: Int
+#   next: String
+#   offset: Int
+#   previous: String
+#   total: Int
+# }
+
+# """
+# album type for Spotify album by ID
+# """
+# type Spotify_Album {
+#   album_type: String
+#   artists: [Spotify_Albums_By_Id_Artist]
+#   available_markets: JSON
+#   copyrights: [Spotify_Copyright]
+#   external_ids: Spotify_ExternalId
+#   external_urls: Spotify_ExternalUrl
+#   genres: JSON
+#   href: String
+#   id: ID!
+#   images: [Spotify_Image]
+#   label: String
+#   name: String
+#   popularity: Int
+#   release_date: String
+#   release_date_precision: String
+#   total_tracks: Int
+#   tracks: Spotify_Albums_By_Id_Tracks
+#   type: String
+#   uri: String
+# }
+
+# type Query {
+#   """
+#   This query retrieves information an album via an id
+#   """
+#   spotify_AlbumByID(id: ID!): Spotify_Album
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/albums/$id"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# artist type for getting Spotify tracks by id
+# """
+# type Spotify_Album_Tracks_By__Album_Id_Artist {
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   name: String
+#   type: String
+#   uri: String
+# }
+
+# """
+# album item type for getting Spotify tracks by id
+# """
+# type Spotify_Album_Tracks_By__Album_Id_Item {
+#   artists: [Spotify_Album_Tracks_By__Album_Id_Artist]
+#   available_markets: JSON
+#   disc_number: Int
+#   duration_ms: Int
+#   explicit: Boolean
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   is_local: Boolean
+#   name: String
+#   preview_url: String
+#   track_number: Int
+#   type: String
+#   uri: String
+# }
+
+# """
+# album tracks type for getting Spotify tracks by id
+# """
+# type Spotify_Album_Tracks {
+#   href: String
+#   items: [Spotify_Album_Tracks_By__Album_Id_Item]
+#   limit: Int
+#   next: String
+#   offset: Int
+#   previous: String
+#   total: Int
+# }
+
+# type Query {
+#   """
+#   This query retrieves information an album's tracks via an id
+#   """
+#   spotify_AlbumTracksByAlbumID(id: ID!): Spotify_Album_Tracks
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/albums/$id/tracks"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# followers type for getting artists list
+# """
+# type Spotify_Artists_List_Followers {
+#   href: String
+#   total: Int
+# }
+
+# """
+# artists list type for getting artists list
+# """
+# type Spotify_Artists_List_Artist {
+#   external_urls: Spotify_ExternalUrl
+#   followers: Spotify_Artists_List_Followers
+#   genres: String
+#   href: String
+#   id: ID!
+#   images: [Spotify_Image]
+#   name: String
+#   popularity: Int
+#   type: String
+#   uri: String
+# }
+
+# """
+# artists type for getting artists list
+# """
+# type Spotify_Artists {
+#   artists: [Spotify_Artists_List_Artist]
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on artists via a comma-separated list of ids
+#   """
+#   spotify_ArtistsByIDList(ids: String): Spotify_Artists
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/artists?ids=$ids"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# followers type for getting artist by id
+# """
+# type Spotify_Artist_Followers {
+#   href: String
+#   total: Int
+# }
+
+# """
+# artist type for getting artist by id
+# """
+# type Spotify_Artist {
+#   external_urls: Spotify_ExternalUrl
+#   followers: Spotify_Artist_Followers
+#   genres: String
+#   href: String
+#   id: ID!
+#   images: [Spotify_Image]
+#   name: String
+#   popularity: Int
+#   type: String
+#   uri: String
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on an artist via an id
+#   """
+#   spotify_ArtistByID(id: ID!): Spotify_Artist
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/artists/$id"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# artist type for getting top tracks by artist id
+# """
+# type Spotify_Artist_Top_Tracks_Artist {
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   name: String
+#   type: String
+#   uri: String
+# }
+
+# """
+# album type for getting top tracks by artist id
+# """
+# type Spotify_Artist_Top_Tracks_Album {
+#   album_type: String
+#   artists: [Spotify_Artist_Top_Tracks_Artist]
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   images: [Spotify_Image]
+#   name: String
+#   release_date: String
+#   release_date_precision: String
+#   total_tracks: Int
+#   type: String
+#   uri: String
+# }
+
+# """
+# artist G2 type for getting top tracks by artist id
+# """
+# type Spotify_Artist_Top_Tracks_Artist_G2 {
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   name: String
+#   type: String
+#   uri: String
+# }
+
+# """
+# single track type for getting top tracks by artist id
+# """
+# type Spotify_Artist_Top_Tracks_Track {
+#   album: Spotify_Artist_Top_Tracks_Album
+#   artists: [Spotify_Artist_Top_Tracks_Artist_G2]
+#   disc_number: Int
+#   duration_ms: Int
+#   explicit: Boolean
+#   external_ids: Spotify_ExternalId
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   is_local: Boolean
+#   is_playable: Boolean
+#   name: String
+#   popularity: Int
+#   preview_url: String
+#   track_number: Int
+#   type: String
+#   uri: String
+# }
+
+# """
+# tracks type for getting top tracks by artist id
+# """
+# type Spotify_Tracks {
+#   tracks: [Spotify_Artist_Top_Tracks_Track]
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on  an artist's tracks via the artist's id and the track's market
+#   """
+#   spotify_TracksByArtistID(id: ID, market: String): Spotify_Tracks
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/artists/$id/top-tracks?market=$market"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# followers type for getting related artists by referenced artist id
+# """
+# type Spotify_Artist_Related_Artists_Followers {
+#   href: String
+#   total: Int
+# }
+
+# """
+# artist type for getting related artists by referenced artist id
+# """
+# type Spotify_Artist_Related_Artists_Artist {
+#   external_urls: Spotify_ExternalUrl
+#   followers: Spotify_Artist_Related_Artists_Followers
+#   genres: [String]
+#   href: String
+#   id: ID!
+#   images: [Spotify_Image]
+#   name: String
+#   popularity: Int
+#   type: String
+#   uri: String
+# }
+
+# """
+# related artist type for getting related artists by referenced artist id
+# """
+# type Spotify_Related_Artists {
+#   artists: [Spotify_Artist_Related_Artists_Artist]
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on related artists via the referenced artist's id
+#   """
+#   spotify_RelatedArtistsByArtistID(id: ID): Spotify_Related_Artists
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/artists/$id/related-artists"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# artist albums type for artist's albums by artist's id
+# """
+# type Spotify_Artist_Albums_Artist {
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   name: String
+#   type: String
+#   uri: String
+# }
+
+# """
+# item type for artist's albums by artist's id
+# """
+# type Spotify_Artist_Albums_Item {
+#   album_group: String
+#   album_type: String
+#   artists: [Spotify_Artist_Albums_Artist]
+#   available_markets: [String]
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   images: [Spotify_Image]
+#   name: String
+#   release_date: String
+#   release_date_precision: String
+#   total_tracks: Int
+#   type: String
+#   uri: String
+# }
+
+# """
+# artist album type for artist's albums by artist's id
+# """
+# type Spotify_Artist_Albums {
+#   href: String
+#   items: [Spotify_Artist_Albums_Item]
+#   limit: Int
+#   next: String
+#   offset: Int
+#   previous: String
+#   total: Int
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on an artist's albums via the artist's id
+#   """
+#   spotify_ArtistAlbumsByID(id: ID): Spotify_Artist_Albums
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/artists/$id/albums"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# artist type for new releases query
+# """
+# type Spotify_New_Releases_Artist {
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   name: String
+#   type: String
+#   uri: String
+# }
+
+# """
+# item type for new releases query
+# """
+# type Spotify_New_Releases_Item {
+#   album_type: String
+#   artists: [Spotify_New_Releases_Artist]
+#   available_markets: [String]
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   images: [Spotify_Image]
+#   name: String
+#   release_date: String
+#   release_date_precision: String
+#   total_tracks: Int
+#   type: String
+#   uri: String
+# }
+
+# """
+# albums type for new releases query
+# """
+# type Spotify_New_Releases_Albums {
+#   href: String
+#   items: [Spotify_New_Releases_Item]
+#   limit: Int
+#   next: String
+#   offset: Int
+#   previous: String
+#   total: Int
+# }
+
+# """
+# new releases type for new releases query
+# """
+# type Spotify_New_Releases {
+#   albums: Spotify_New_Releases_Albums
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on Spotify's new releases
+#   """
+#   spotify_NewReleases: Spotify_New_Releases
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/browse/new-releases"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# owner type for featured playlists query
+# """
+# type Spotify_Featured_Playlists_Owner {
+#   display_name: String
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   type: String
+#   uri: String
+# }
+
+# """
+# tracks type for featured playlists query
+# """
+# type Spotify_Featured_Playlists_Tracks {
+#   href: String
+#   total: Int
+# }
+
+# """
+# item type for featured playlists query
+# """
+# type Spotify_Featured_Playlists_Item {
+#   collaborative: Boolean
+#   description: String
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   images: [Spotify_Image]
+#   name: String
+#   owner: Spotify_Featured_Playlists_Owner
+#   primary_color: String
+#   public: String
+#   snapshot_id: ID!
+#   tracks: Spotify_Featured_Playlists_Tracks
+#   type: String
+#   uri: String
+# }
+
+# """
+# playlists type for featured playlists query
+# """
+# type Spotify_Featured_Playlists_Playlists {
+#   href: String
+#   items: [Spotify_Featured_Playlists_Item]
+#   limit: Int
+#   next: String
+#   offset: Int
+#   previous: String
+#   total: Int
+# }
+
+# """
+# featured playlists type for featured playlists query
+# """
+# type Spotify_Featured_Playlists {
+#   message: String
+#   playlists: Spotify_Featured_Playlists_Playlists
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on Spotify's featured playlists
+#   """
+#   spotify_FeaturedPlaylists: Spotify_Featured_Playlists
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/browse/featured-playlists"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# item type for getting categories
+# """
+# type Spotify_Categories_Item {
+#   href: String
+#   icons: [Spotify_Image]
+#   id: ID!
+#   name: String
+# }
+
+# """
+# categories type for getting categories
+# """
+# type Spotify_Categories_Categories {
+#   href: String
+#   items: [Spotify_Categories_Item]
+#   limit: Int
+#   next: String
+#   offset: Int
+#   previous: String
+#   total: Int
+# }
+
+# """
+# categories type for getting categories
+# """
+# type Spotify_Categories {
+#   categories: Spotify_Categories_Categories
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on Spotify's categories
+#   """
+#   spotify_Categories: Spotify_Categories
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/browse/categories"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# categoires by id type for getting categories by id
+# """
+# type Spotify_Categories_By_Id {
+#   href: String
+#   icons: [Spotify_Image]
+#   id: ID!
+#   name: String
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on categories via an id
+#   """
+#   spotify_CategoriesByID(id: ID!): Spotify_Categories_By_Id
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/browse/categories/$id"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# seed type for retrieving recommendations from Spotify
+# """
+# type Spotify_Recommendations_Seed {
+#   afterFilteringSize: Int
+#   afterRelinkingSize: Int
+#   href: String
+#   id: ID!
+#   initialPoolSize: Int
+#   type: String
+# }
+
+# """
+# recommendations type for retrieving recommendation from Spotify
+# """
+# type Spotify_Recommendations {
+#   seeds: [Spotify_Recommendations_Seed]
+#   tracks: JSON
+# }
+
+# type Query {
+#   """
+#   returns Spotify recommendation by entered params-- seed_artists, seed_tracks, and seed_genres required
+#   """
+#   spotify_Recommendations(
+#     min_acousticness: Int
+#     max_liveness: Int
+#     target_acousticness: Int
+#     min_liveness: Int
+#     min_speechiness: Int
+#     seed_artists: String
+#     target_energy: Int
+#     seed_genres: String
+#     market: String
+#     max_speechiness: Int
+#     min_instrumentalness: Int
+#     target_instrumentalness: Int
+#     min_energy: Int
+#     max_instrumentalness: Int
+#     max_loudness: Int
+#     target_popularity: Int
+#     max_acousticness: Int
+#     min_popularity: Int
+#     target_duration_ms: Int
+#     min_danceability: Int
+#     max_danceability: Int
+#     target_danceability: Int
+#     target_speechiness: Int
+#     max_popularity: Int
+#     min_loudness: Int
+#     target_liveness: Int
+#     seed_tracks: String
+#     max_energy: Int
+#     target_loudness: Int
+#   ): Spotify_Recommendations
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/recommendations?market=$market&seed_artists=$seed_artists&seed_genres=$seed_genres&seed_tracks=$seed_tracks&min_acousticness=$min_acousticness&max_acousticness=$max_acousticness&target_acousticness=$target_acousticness&min_danceability=$min_danceability&max_danceability=$max_danceability&target_danceability=$target_danceability&min_energy=$min_energy&max_energy=$max_energy&target_energy=$target_energy&min_instrumentalness=$min_instrumentalness&max_instrumentalness=$max_instrumentalness&target_instrumentalness=$target_instrumentalness&min_liveness=$min_liveness&max_liveness=$max_liveness&target_liveness=$target_liveness&min_loudness=$min_loudness&max_loudness=$max_loudness&target_loudness=$target_loudness&min_popularity=$min_popularity&max_popularity=$max_popularity&target_popularity=$target_popularity&min_speechiness=$min_speechiness&max_speechiness=$max_speechiness&target_speechiness=$target_speechiness&target_duration_ms=$target_duration_ms&min_instrumentalness=$min_instrumentalness"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# followers type for getting recommendations
+# """
+# type Spotify_Search_Followers {
+#   href: String
+#   total: Int
+# }
+
+# """
+# search item type for getting recommendations
+# """
+# type Spotify_Search_Item {
+#   external_urls: Spotify_ExternalUrl
+#   followers: Spotify_Search_Followers
+#   genres: JSON
+#   href: String
+#   id: ID!
+#   images: [Spotify_Image]
+#   name: String
+#   popularity: Int
+#   type: String
+#   uri: String
+# }
+
+# """
+# artists type for getting recommendations
+# """
+# type Spotify_Search_Artists {
+#   href: String
+#   items: [Spotify_Search_Item]
+#   limit: Int
+#   next: String
+#   offset: Int
+#   previous: String
+#   total: Int
+# }
+
+# """
+# search type for getting recommendations
+# """
+# type Spotify_Search {
+#   artists: Spotify_Search_Artists
+# }
+
+
+# """
+# owner type for getting playlists by category
+# """
+# type Spotify_Playlists_By_Category_Owner {
+#   display_name: String
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   type: String
+#   uri: String
+# }
+
+# """
+# tracks type for getting playlists by category
+# """
+# type Spotify_Playlists_By_Category_Tracks {
+#   href: String
+#   total: Int
+# }
+
+# """
+# item type for getting playlists by category
+# """
+# type Spotify_Playlists_By_Category_Item {
+#   collaborative: Boolean
+#   description: String
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   images: [Spotify_Image]
+#   name: String
+#   owner: Spotify_Playlists_By_Category_Owner
+#   primary_color: String
+#   public: String
+#   snapshot_id: ID!
+#   tracks: Spotify_Playlists_By_Category_Tracks
+#   type: String
+#   uri: String
+# }
+
+# type Spotify_Playlists_By_Category_Playlists {
+#   href: String
+#   items: [Spotify_Playlists_By_Category_Item]
+#   limit: Int
+#   next: String
+#   offset: Int
+#   previous: String
+#   total: Int
+# }
+
+# type Spotify_Playlists_For_Category {
+#   playlists: Spotify_Playlists_By_Category_Playlists
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on playlists for a certain category. Token and category_id are required parameters.
+#   """
+#   spotify_PlaylistsForCategory(
+#     country: String
+#     limit: Int
+#     category_id: ID
+#   ): Spotify_Playlists_For_Category
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/browse/categories/$category_id/playlists?country=$country&limit=$limit"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# the following types and queries are orchestrated to retrieve a lists of tracks by ids
+# """
+# type Spotify_Tracks_Get_List {
+#   tracks: JSON
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on list tracks via a comma-separated list of ids
+#   """
+#   spotify_ListTracksByIDs(ids: String): Spotify_Tracks_Get_List
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/tracks?ids=$ids"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# type Spotify_Get_A_Track_Artist {
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   name: String
+#   type: String
+#   uri: String
+# }
+
+# type Spotify_Get_A_Track_Album {
+#   album_type: String
+#   artists: String
+#   available_markets: String
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   images: String
+#   name: String
+#   release_date: String
+#   release_date_precision: String
+#   total_tracks: Int
+#   type: String
+#   uri: String
+# }
+
+# type Spotify_Get_A_Track_Artist_G6 {
+#   external_urls: Spotify_ExternalUrl
+#   href: String
+#   id: ID!
+#   name: String
+#   type: String
+#   uri: String
+# }
+
+
+
+# """
+# audio feature type for getting audio features for a list of tracks
+# """
+# type Spotify_Get_Audio_Features_For_List_Of_Tracks_Audio_Feature {
+#   acousticness: Float
+#   analysis_url: String
+#   danceability: Float
+#   duration_ms: Int
+#   energy: Float
+#   id: ID!
+#   instrumentalness: Float
+#   key: Int
+#   liveness: Float
+#   loudness: Float
+#   mode: Int
+#   speechiness: Float
+#   tempo: Float
+#   time_signature: Int
+#   track_href: String
+#   type: String
+#   uri: String
+#   valence: Float
+# }
+
+# """
+# audio features type for getting audio features for a list of tracks
+# """
+# type Spotify_Track_Audio_Features {
+#   audio_features: [Spotify_Get_Audio_Features_For_List_Of_Tracks_Audio_Feature]
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on track audio features for a list of tracks via a comma-separated list of ids
+#   """
+#   spotify_TrackAudioFeatures(ids: ID): Spotify_Track_Audio_Features
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/audio-features?ids=$ids"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# audio_features_for_a_track type for getting a list of audio features for one track
+# """
+# type Spotify_Audio_Features_For_A_Track {
+#   acousticness: Float
+#   analysis_url: String
+#   danceability: Float
+#   duration_ms: Int
+#   energy: Float
+#   id: ID!
+#   instrumentalness: Float
+#   key: Int
+#   liveness: Float
+#   loudness: Float
+#   mode: Int
+#   speechiness: Float
+#   tempo: Float
+#   time_signature: Int
+#   track_href: String
+#   type: String
+#   uri: String
+#   valence: Float
+# }
+
+# type Query {
+#   """
+#   This query retrieves information on audio features for a track via an id
+#   """
+#   spotify_AudioFeaturesForATrack(id: ID!): Spotify_Audio_Features_For_A_Track
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/audio-features/$id"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }
+
+# """
+# Bar type for getting to retrieve audio analysis for a single track by its id
+# """
+# type Spotify_Get_Audio_Analysis_For_One_Track_Bar {
+#   confidence: Float
+#   duration: Float
+#   start: Float
+# }
+
+# """
+# beat type for getting to retrieve audio analysis for a single track by its id
+# """
+# type Spotify_Get_Audio_Analysis_For_One_Track_Beat {
+#   confidence: Float
+#   duration: Float
+#   start: Float
+# }
+
+# """
+# meta type for getting to retrieve audio analysis for a single track by its id
+# """
+# type Spotify_Get_Audio_Analysis_For_One_Track_Meta {
+#   analysis_time: Float
+#   analyzer_version: String
+#   detailed_status: String
+#   input_process: String
+#   platform: String
+#   status_code: Int
+#   timestamp: Int
+# }
+
+# """
+# section type for getting to retrieve audio analysis for a single track by its id
+# """
+# type Spotify_Get_Audio_Analysis_For_One_Track_Section {
+#   confidence: Int
+#   duration: Float
+#   key: Int
+#   key_confidence: Float
+#   loudness: Float
+#   mode: Int
+#   mode_confidence: Float
+#   start: Int
+#   tempo: Float
+#   tempo_confidence: Float
+#   time_signature: Int
+#   time_signature_confidence: Int
+# }
+
+# """
+# segment type for getting to retrieve audio analysis for a single track by its id
+# """
+# type Spotify_Get_Audio_Analysis_For_One_Track_Segment {
+#   confidence: Int
+#   duration: Float
+#   loudness_end: Int
+#   loudness_max: Int
+#   loudness_max_time: Int
+#   loudness_start: Int
+#   pitches: [Float]
+#   start: Int
+#   timbre: [Float]
+# }
+
+# """
+# tatum type for retrieving audio analysis for a single track by its id
+# """
+# type Spotify_Get_Audio_Analysis_For_One_Track_Tatum {
+#   confidence: Float
+#   duration: Float
+#   start: Float
+# }
+
+# """
+# track type for retrieving audio analysis for a single track by its id
+# """
+# type Spotify_Get_Audio_Analysis_For_One_Track_Track {
+#   analysis_channels: Int
+#   analysis_sample_rate: Int
+#   code_version: Float
+#   codestring: String
+#   duration: Float
+#   echoprint_version: Float
+#   echoprintstring: String
+#   end_of_fade_in: Float
+#   key: Int
+#   key_confidence: Float
+#   loudness: Float
+#   mode: Int
+#   mode_confidence: Float
+#   num_samples: Int
+#   offset_seconds: Int
+#   rhythm_version: Int
+#   rhythmstring: String
+#   sample_md5: String
+#   start_of_fade_out: Float
+#   synch_version: Int
+#   synchstring: String
+#   tempo: Float
+#   tempo_confidence: Float
+#   time_signature: Int
+#   time_signature_confidence: Int
+#   window_seconds: Int
+# }
+
+# """
+# audio_analysis_for_a_track type for getting to retrieve audio analysis for a single track by its id
+# """
+# type Spotify_Audio_Analysis_For_A_Track {
+#   bars: [Spotify_Get_Audio_Analysis_For_One_Track_Bar]
+#   beats: [Spotify_Get_Audio_Analysis_For_One_Track_Beat]
+#   meta: Spotify_Get_Audio_Analysis_For_One_Track_Meta
+#   sections: [Spotify_Get_Audio_Analysis_For_One_Track_Section]
+#   segments: [Spotify_Get_Audio_Analysis_For_One_Track_Segment]
+#   tatums: [Spotify_Get_Audio_Analysis_For_One_Track_Tatum]
+#   track: Spotify_Get_Audio_Analysis_For_One_Track_Track
+# }
+
+# type Query {
+#   """
+#   This query retrieves audio analysis for a track via an id
+#   """
+#   spotify_AudioAnalysisForATrack(id: ID): Spotify_Audio_Analysis_For_A_Track
+#     @rest(
+#       endpoint: "https://api.spotify.com/v1/audio-analysis/$id"
+#       headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+#       configuration: "spotify_config"
+#     )
+# }

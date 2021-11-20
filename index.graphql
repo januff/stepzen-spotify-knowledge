@@ -1,0 +1,9 @@
+schema
+  @sdl(
+    files: [
+      "google/knowledge.graphql"
+      "spotify/spotify.graphql"
+    ]
+  ) {
+  query: Query
+}

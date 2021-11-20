@@ -1,0 +1,61 @@
+type GoogleKnowledgeGraph_DetailedDescription {
+  articleBody: String
+  license: String
+  url: String
+}
+
+type GoogleKnowledgeGraph_Image {
+  contentUrl: String
+  url: String
+  license: String
+}
+
+type GoogleKnowledgeGraph_Item {
+  id: String
+  type: [String]
+  description: String
+  detailedDescription: GoogleKnowledgeGraph_DetailedDescription
+  image: GoogleKnowledgeGraph_Image
+  name: String
+  resultScore: Float
+  url: String
+}
+
+type Query {
+  googleKnowledgeGraph_search(
+    """
+    A literal string to search for in the Knowledge Graph.
+    """
+    query: String
+    """
+    A list of entity IDs to search for in the Knowledge Graph. To specify multiple IDs in the HTTP request, repeat the parameter in the URL as in ...?ids=A&ids=B
+    """
+    ids: String
+    """
+    Restricts returned entities to those of the specified types. For example, you can specify `Person` (as defined in http://schema.org/Person) to restrict the results to entities representing people. If multiple types are specified, returned entities will contain one or more of these types.
+    """
+    types: String
+    """
+    Enables prefix (initial substring) match against names and aliases of entities. For example, a prefix `Jung` will match entities and aliases such as `Jung`, `Jungle`, and `Jung-ho Kang`.
+    """
+    prefix: Boolean
+    """
+    Limits the number of entities to be returned. Maximum is 500. Default is 20. Requests with high limits have a higher chance of timing out.
+    """
+    limit: Int = 1
+  ): [GoogleKnowledgeGraph_Item]
+    @rest(
+      endpoint: "https://kgsearch.googleapis.com/v1/entities:search?key=$knowledge_key"
+      resultroot: "itemListElement[]"
+      setters: [
+        { field: "id", path: "result.`@id`" }
+        { field: "type", path: "result.`@type`" }
+        { field: "description", path: "result.description" }
+        { field: "detailedDescription", path: "result.detailedDescription" }
+        { field: "image", path: "result.image" }
+        { field: "name", path: "result.name" }
+        { field: "url", path: "result.url" }
+      ]
+      configuration: "knowledge_config"
+    )
+}
