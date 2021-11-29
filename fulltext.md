@@ -154,4 +154,4 @@ And with that, our Spotify track query now returns Knowledge-annotated data, wit
   <img src="././images/annotatedgraph.png"/>
 </p>
 
-For the full code, visit my GitHub repo at [januff/stepzen-spotify-knowledge](http://www.github.com/januff/stepzen-spotify-knowledge).
+To duplicate this query, visit [graphql.stepzen.com](http://graphql.stepzen.com) and follow the steps above. For the full code, visit my GitHub repo at [januff/stepzen-spotify-knowledge](http://www.github.com/januff/stepzen-spotify-knowledge).
