@@ -1,13 +1,13 @@
-### A More Knowledgeable Spotify ###
+### Behind the Music (in Two Sentences or Less)  ###
 *Mashing up the Spotify & Knowledge Graph APIs, using StepZen's new GraphQL Studio.*
 
-The boxes of summarized information that appear aside Google search results? Those are Google's "knowledge panels," so-called because they're powered by [Google's Knowledge Graph](https://medium.com/r/?url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FGoogle_Knowledge_Graph), a knowledge base launched in 2012 and currently boasting more than 500 billion facts on 5 billion entities.
+The boxes of summarized information that appear beside Google search results? Those are Google's "knowledge panels," so-called because they're powered by [Google's Knowledge Graph](https://medium.com/r/?url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FGoogle_Knowledge_Graph), a knowledge base launched in 2012 and currently boasting more than 500 billion facts on 5 billion entities.
 
 <p align="center">
   <img src="././images/sidebar.png"/>
 </p>
 
-*A reintroduction to our Knowledge Graph and knowledge panels ([Google Keyword blog, 2020](https://medium.com/r/?url=https%3A%2F%2Fblog.google%2Fproducts%2Fsearch%2Fabout-knowledge-graph-and-knowledge-panels%2F))*
+##### *A reintroduction to our Knowledge Graph and knowledge panels ([Google Keyword blog, 2020](https://medium.com/r/?url=https%3A%2F%2Fblog.google%2Fproducts%2Fsearch%2Fabout-knowledge-graph-and-knowledge-panels%2F))* #####
 
 Largely derived from Wikipedia text, data from the Knowledge Graph has some appealing qualities to API-handy developers: a zillion concise factual summaries being one, and a daily allocation of [100,000 free APIs calls](https://medium.com/r/?url=https%3A%2F%2Fdevelopers.google.com%2Fknowledge-graph%2Freference%2Frest%2Fv1%2Fusage-limits) being another.
 
