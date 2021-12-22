@@ -109,6 +109,7 @@ type Spotify_Track {
         query: "googleKnowledgeGraph_search"
         arguments: [
           { name: "query" field: "album" }
+          { name: "types" argument: "types" }
         ]
       )
   artists: String
@@ -119,6 +120,7 @@ type Spotify_Track {
         query: "googleKnowledgeGraph_search"
         arguments: [
           { name: "query" field: "artists" }
+          { name: "types" argument: "types" }
         ]
       )
   name: String
@@ -129,6 +131,7 @@ type Spotify_Track {
         query: "googleKnowledgeGraph_search"
         arguments: [
           { name: "query" field: "name" }
+          { name: "types" argument: "types" }
         ]
       )
   duration_ms: Int

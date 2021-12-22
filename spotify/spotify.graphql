@@ -1,3 +1,35 @@
+type Spotify_Auth {
+  token_type: String
+  access_token: String!
+  expires_in: Float
+}
+
+type Query {
+  get_auth: Spotify_Auth
+    @rest(
+      method: POST
+      contenttype: "application/x-www-form-urlencoded"
+      endpoint: "https://accounts.spotify.com/api/token?grant_type=client_credentials&client_id=$client_id&client_secret=$client_secret"
+      configuration: "spotify_config"
+    )
+}
+
+type Query {
+  spotify_search_with_token(
+    q: String!
+  ): Spotify_Track
+    @sequence(
+      steps: [
+        { query: "get_auth" }
+        { query: "spotify_Search"
+          arguments: [
+            { name: "q", argument: "q" }
+          ]
+        }        
+      ]
+    )
+}
+
 type Spotify_Track {
   album: String
   albumInfo(
@@ -7,6 +39,7 @@ type Spotify_Track {
       query: "googleKnowledgeGraph_search"
       arguments: [
         { name: "query" field: "album" }
+        { name: "types" argument: "types" }
       ]
     )
   artists: String
@@ -17,16 +50,18 @@ type Spotify_Track {
       query: "googleKnowledgeGraph_search"
       arguments: [
         { name: "query" field: "artists" }
+        { name: "types" argument: "types" }
       ]
     )
   name: String
   trackInfo(
-      types: String = "MusicRelease"
+      types: String = "MusicRecording"
     ): [GoogleKnowledgeGraph_Item]
     @materializer(
       query: "googleKnowledgeGraph_search"
       arguments: [
         { name: "query" field: "name" }
+        { name: "types" argument: "types" }
       ]
     )  
   duration_ms: Int
@@ -49,10 +84,11 @@ type Query {
     """
     q: String
     limit: Int = 1
+    access_token: String!
   ): [Spotify_Track]
     @rest(
       endpoint: "https://api.spotify.com/v1/search?q=$q&type=track"
-      headers: [{ name: "Authorization", value: "Bearer $spotify_token" }]
+      headers: [{ name: "Authorization", value: "Bearer $access_token" }]
       setters: [
         { field: "album", path: "tracks.items[].album.name" }
         { field: "type", path: "tracks.items[].type" }
