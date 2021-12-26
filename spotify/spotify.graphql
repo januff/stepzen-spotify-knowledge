@@ -55,7 +55,7 @@ type Spotify_Track {
     )
   name: String
   trackInfo(
-      types: String = "MusicRecording"
+      types: String = "Thing"
     ): [GoogleKnowledgeGraph_Item]
     @materializer(
       query: "googleKnowledgeGraph_search"
