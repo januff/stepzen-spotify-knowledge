@@ -11,6 +11,8 @@ This repo contains the code referenced in the post below, a quick walkthrough of
   <img src="././images/annotatedgraph.png"/>
 </p>
 
+<br/>
+
 - **[Spotify OAuth 2.0 Tokens In 3 Simple Steps](././getauth.md): Easily bundle an Access Token request with StepZen's @sequence directive**
 
 
