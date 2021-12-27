@@ -9,9 +9,7 @@ Hand-cranking a temporary token using the Spotify web dashboard was good enough 
 
 StepZen's @sequence directive, our tool for this task, is complementary to their @materializer directive–the former for extending query definitions, the latter for extending type definitions–and can be seen as different means to the same end: ordering your API calls.
 
-Where @materializer allows us to step through our API requests in implicit order, simply by descending through our type fields and back-filling secondary data, @sequence lets us step through API requests in explicit order. 
-
-Also different: unlike the @materializer directive, which we nest inside our type definitions, we locate the @sequence directive inside a query definition, a better home for transitory permissions data whose particulars are entirely incidental to our schema.
+Where @materializer allows us to step through our API requests in implicit order, simply by descending through our type fields and back-filling secondary data, @sequence lets us step through API requests in explicit order. Also different: unlike the @materializer directive, which we nest inside our type definitions, we locate the @sequence directive inside a query definition, a better home for transitory permissions data whose particulars are entirely incidental to our schema.
 
 Here's how, using @sequence, we loop in a call to Spotify's Auth endpoint in just three steps, a simplified version of Sam Hill's [recent Auth 2.0 walkthrough](https://stepzen.com/blog/sequence-oauth).
 
