@@ -65,7 +65,7 @@ type Query {
 }
 ```
 
-**3. Add token as required argument to Search query:**
+**3. Add access_token as required argument to our spotify_Search query**
 
 Finally, we add access_token as a required argument to spotify_Search query–instead of passing in the hand-coded value from our config, as I did in my first pass. It's still available as $access_token, but now it's a dynamic value, supplied by the prefatory get_auth query above.
 
