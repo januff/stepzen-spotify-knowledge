@@ -1,17 +1,19 @@
-### Spotify OAuth 2.0 Tokens Simplified ###
+### Spotify OAuth 2.0 Tokens In 3 Simple Steps ###
 ##### _Easily bundle an Access Token request with StepZen's @sequence directive_ #####
 
-_(Editor's Note: In his last post, freelance developer Joey Anuff showed how easy it is to combine  Spotify and Google data using StepZen's @materializer directive. We welcome him back to explain how StepZen's @sequence directive simplifies adding OAuth authorization to a request.)_
+_(Editor's Note: In his last post, freelance developer Joey Anuff showed how easy it is to [combine Spotify and Google data using StepZen's @materializer directive](https://stepzen.com/blog/new-workflowf-for-api-mash-ups-postman-stepzen-youtube-data-api). We welcome him back to explain how StepZen's @sequence directive simplifies adding OAuth authorization to that request. For the full code, visit Joey's GitHub repo at [januff/stepzen-spotify-knowledge](https://github.com/januff/stepzen-spotify-knowledge).)_
 
 When I used StepZen to sync the Spotify and Knowledge Graph APIs, I quickly encountered a common headache with mixed APIs: their diversity of authorization requirements. Specifically, requests to Google's Knowledge Graph require an API key that never expires, while requests to Spotify require an access token that expires after just an hour.
 
-Hand-cranking a temporary token using the Spotify web dashboard was good enough for a quick demo, but given the simplicity of our OAuth request–which involves no user authentication, only application authentication–we were left with a perfect case study to illustrate StepZen's handling of the most basic of OAuth code flows: the Client Credentials Flow.
+Hand-cranking a temporary token using the Spotify web dashboard was good enough for a quick demo, but given the simplicity of our OAuth request–which involves no user authentication, only application authentication–we were left with a perfect case study to illustrate StepZen's handling of the most basic of OAuth code flows: the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/).
 
 StepZen's @sequence directive, our tool for this task, is complementary to their @materializer directive–the former for extending query definitions, the latter for extending type definitions–and can be seen as different means to the same end: ordering your API calls.
 
-Where @materializer allows us to step through our API requests implicitly, just by descending through our type fields and filling out the dependent data, @sequence lets us step through API requests explicitly–and is located in a query definition, a better home for transitory permissions data whose particulars are incidental to our main data types.
+Where @materializer allows us to step through our API requests in implicit order, simply by descending through our type fields and dialing for any dependent data, @sequence lets us step through API requests in explicit order. 
 
-Here's how we @sequence in a call to Spotify's Auth endpoint in just three steps, a simplified version of Sam Hill's [recent Auth 2.0 walkthrough](https://stepzen.com/blog/sequence-oauth).
+Also different: unlike the @materializer directive, which we nest inside our type definitions, we locate the @sequence directive inside a query definition, a better home for transitory permissions data whose particulars are entirely incidental to our schema.
+
+Here's how, using @sequence, we loop in a call to Spotify's Auth endpoint in just three steps, a simplified version of Sam Hill's [recent Auth 2.0 walkthrough](https://stepzen.com/blog/sequence-oauth).
 
 
 **1. Add Spotify Auth type and query:**
@@ -67,7 +69,7 @@ type Query {
 
 **3. Add token as required argument to Search query:**
 
-Finally, we add access_token as a required argument to spotify_Search query–instead of passing in the hand-coded value from our config, as I did in my first pass. It's still available as $access_token, but now it's a dynamic value.
+Finally, we add access_token as a required argument to spotify_Search query–instead of passing in the hand-coded value from our config, as I did in my first pass. It's still available as $access_token, but now it's a dynamic value, supplied by a premeditated get_auth query.
 
 ```
 type Query {
@@ -86,11 +88,14 @@ type Query {
       endpoint: "https://api.spotify.com/v1/search?q=$q&type=track"
       headers: [{ name: "Authorization", value: "Bearer $access_token" }]
 
-      (...)
-  ```
+    (...)
+```
 
-  Now we can explore our data at our leisure, with no more fear of token-timeout errors.
+Now we can explore our data at our leisure, with no fear of our tokens expiring.
 
-  <p align="center">
+<p align="center">
   <img src="././images/spotifywithtoken.png"/>
 </p>
+
+As we evolve our query to modify user data, expanding our grant_type and adding redirect URLs to our Auth flows, we'll be adding steps to our queries, but we'll largely be relying on the same @materializer and @sequence directives to handle them.
+

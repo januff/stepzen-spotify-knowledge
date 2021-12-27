@@ -11,4 +11,13 @@ This repo contains the code referenced in the post below, a quick walkthrough of
   <img src="././images/annotatedgraph.png"/>
 </p>
 
+- **[Spotify OAuth 2.0 Tokens In 3 Simple Steps](././getauth.md): Easily bundle an Access Token request with StepZen's @sequence directive**
 
+
+  > Where @materializer allows us to step through our API requests in implicit order, simply by descending through our type fields and dialing for dependent data, @sequence lets us step through API requests in explicit order. 
+
+<br/>
+
+<p align="center">
+  <img src="././images/spotifywithtoken.png"/>
+</p>
