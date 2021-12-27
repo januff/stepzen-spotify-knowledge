@@ -1,4 +1,4 @@
-### Spotify OAuth 2.0 Tokens In 3 Simple Steps ###
+### Spotify OAuth 2.0 Tokens (in 3 Steps Total) ###
 ##### _Easily bundle an Access Token request with StepZen's @sequence directive_ #####
 
 _(Editor's Note: In his last post, freelance developer Joey Anuff showed how easy it is to [combine Spotify and Google data using StepZen's @materializer directive](https://stepzen.com/blog/new-workflowf-for-api-mash-ups-postman-stepzen-youtube-data-api). We welcome him back to explain how StepZen's @sequence directive simplifies adding OAuth authorization to that request. For the full code, visit Joey's GitHub repo at [januff/stepzen-spotify-knowledge](https://github.com/januff/stepzen-spotify-knowledge).)_
