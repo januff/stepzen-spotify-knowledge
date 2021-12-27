@@ -14,7 +14,7 @@ Where @materializer allows us to step through our API requests in implicit order
 Here's how, using @sequence, we loop in a call to Spotify's Auth endpoint in just three steps, a simplified version of Sam Hill's [recent Auth 2.0 walkthrough](https://stepzen.com/blog/sequence-oauth).
 
 
-**1. Add Spotify Auth type and query**
+**1. Add Spotify Auth type and query to our Spotify GraphQL**
 
 Spotify's authorization endpoint behaves the same as the HubSpot server in Sam's example, but our grant type of client_credentials returns an even simpler JSON response, of which access_token is the only field we'll be preserving. 
 
