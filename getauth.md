@@ -67,7 +67,7 @@ type Query {
 
 **3. Add token as required argument to Search query:**
 
-Finally, we add access_token as a required argument to spotify_Search query–instead of passing in the hand-coded value from our config, as I did in my first pass. It's still available as $access_token, but now it's a dynamic value, supplied by a premeditated get_auth query.
+Finally, we add access_token as a required argument to spotify_Search query–instead of passing in the hand-coded value from our config, as I did in my first pass. It's still available as $access_token, but now it's a dynamic value, supplied by a prefatory get_auth query.
 
 ```
 type Query {
@@ -89,11 +89,11 @@ type Query {
     (...)
 ```
 
-Now we can explore our data at our leisure, with no fear of our tokens expiring.
+Now we can explore our data at our leisure, with no fear of expired tokens.
 
 <p align="center">
   <img src="././images/spotifywithtoken.png"/>
 </p>
 
-As we evolve our query to modify user data, expanding our grant_type and adding redirect URLs to our Auth flows, we'll be adding steps to our queries, but we'll largely be relying on the same @materializer and @sequence directives to handle them.
+As we evolve our query to modify user data–expanding our grant_type and adding redirect URLs to our Auth flows–we'll be adding steps to our queries, but we'll largely be relying on these same @materializer and @sequence directives to handle them.
 
