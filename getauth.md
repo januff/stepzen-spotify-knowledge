@@ -89,7 +89,7 @@ type Query {
     (...)
 ```
 
-And that's it! Now we can explore our data at leisure, without worry of expired tokens.
+And that's it! Now we can explore our data leisurely, without worry of expired tokens.
 
 <p align="center">
   <img src="././images/spotifywithtoken.png"/>
