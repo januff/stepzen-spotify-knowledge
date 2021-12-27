@@ -43,7 +43,7 @@ type Query {
 }
 ```
 
-**2. Add an authorization step to a @sequence-driven query**
+**2. Add an authorization step to a new @sequence-driven query**
 
 In a @sequence of steps, all fields returned from a prior step are automatically supplied as parameters to the next query, but prior fields or initial arguments need to be included, as with the initial q parameter in the spotify_Search step below.
 
@@ -65,7 +65,7 @@ type Query {
 }
 ```
 
-**3. Add access_token as required argument to our spotify_Search query**
+**3. Add access_token as required argument to our old spotify_Search query**
 
 Finally, we add access_token as a required argument to spotify_Search query–instead of passing in the hand-coded value from our config, as I did in my first pass. It's still available as $access_token, but now it's a dynamic value, supplied by the prefatory get_auth query above.
 
