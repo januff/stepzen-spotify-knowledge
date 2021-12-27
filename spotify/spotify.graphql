@@ -1,7 +1,5 @@
 type Spotify_Auth {
-  token_type: String
   access_token: String!
-  expires_in: Float
 }
 
 type Query {
