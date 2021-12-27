@@ -95,5 +95,5 @@ Now we can explore our data at our leisure, without worry of expired tokens.
   <img src="././images/spotifywithtoken.png"/>
 </p>
 
-As we evolve our query to modify user data–expanding our grant_type and adding redirect URLs to our Auth flows–we'll be adding new queries and steps, but we'll largely be relying on these same @materializer and @sequence directives to make them run.
+As we evolve our query to modify user data–expanding our grant_type and adding redirect URLs to our OAuth flow–we'll be adding new queries and steps, but we'll largely be relying on these same @materializer and @sequence directives to make them run.
 
