@@ -99,7 +99,7 @@ type Query {
 
 <br/>
 
-And that's it! Now we can explore our data at leisure, with no more fear of dying tokens.
+And that's it! Now we can explore our data at leisure, unconcerned with dying tokens.
 
 <p align="center">
   <img src="././images/spotifywithtoken.png"/>
