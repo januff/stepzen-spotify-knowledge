@@ -5,7 +5,11 @@ _(Editor's Note: In his last post, freelance developer Joey Anuff showed how eas
 
 When I used StepZen to sync the Spotify and Knowledge Graph APIs, I quickly encountered a common headache with mixed APIs: their diversity of authorization requirements. Specifically, requests to Google's Knowledge Graph require an API key that never expires, while requests to Spotify require an access token that expires after just an hour.
 
-Hand-cranking a temporary token using the Spotify web dashboard was good enough for a quick demo, but given the simplicity of our OAuth request–which involves no user authentication, only application authentication–we were left with a perfect case study to illustrate StepZen's handling of the most basic of OAuth code flows: the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/).
+Hand-cranking a temporary token using the Spotify web dashboard was good enough for a quick demo, but given the simplicity of our OAuth request–which involves no user authentication, only application authentication–we were left with a perfect case study to illustrate StepZen's handling of the most basic of OAuth flows: the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization/client-credentials/).
+
+<p align="center">
+  <img src="././images/clientcredentialsflow.png"/>
+</p>
 
 StepZen's @sequence directive, our tool for this task, is complementary to their @materializer directive–the former for extending query definitions, the latter for extending type definitions–and can be seen as different means to the same end: ordering your API calls.
 
