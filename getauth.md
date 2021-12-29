@@ -73,7 +73,7 @@ type Query {
 
 <br/>
 
-**3. Add <code>access_token</code> as required argument to our old <code>spotify_Search</code> query**
+**3. Add <code>access_token</code> as required argument to our existing <code>spotify_Search</code> query**
 
 Finally, we add <code>access_token</code> as a required argument to the <code>spotify_Search</code> query–instead of passing in the hand-coded value from our config, as I did in my first pass. It's still available as <code>$access_token</code>, but now it's a dynamic value, supplied by the <code>@sequence</code>-prepended <code>get_auth</code> query from Step One.
 
