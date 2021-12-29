@@ -13,7 +13,7 @@ type Query {
 }
 
 type Query {
-  spotify_search_with_token(
+  spotify_Search_With_Token(
     q: String!
   ): Spotify_Track
     @sequence(

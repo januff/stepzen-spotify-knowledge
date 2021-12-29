@@ -49,13 +49,13 @@ type Query {
 
 <br/>
 
-**2. Add an authorization step to a new <code>@sequence</code>-driven query**
+**2. Add an authorization step to a new <code>@sequence</code>-driven query: <code>spotify_Search_With_Token</code>**
 
 In a <code>@sequence</code> of steps, all fields returned from a prior step are automatically supplied as parameters to the next query, but prior fields or initial arguments need to be included, as with the initial <code>q</code> parameter in the <code>spotify_Search</code> step below.
 
 ```
 type Query {
-  spotify_search_with_token(
+  spotify_Search_With_Token(
     q: String!
   ): Spotify_Track
     @sequence(
