@@ -15,7 +15,7 @@ StepZen's <code>@sequence</code> directive, our tool for this task, is complemen
 
 Where <code>@materializer</code> allows us to step through our API requests in implicit order, simply by descending through our type fields and back-filling secondary data, <code>@sequence</code> lets us step through API requests in explicit order. Also different: unlike the <code>@materializer</code> directive, which we nest inside our type definitions, we locate the <code>@sequence</code> directive inside a query definition, a better home for transitory permissions data incidental to our <code>Spotify_Track</code> type.
 
-Here's how, using <code>@sequence</code>, we loop in a call to Spotify's Auth endpoint in just three steps, a simplified version of Sam Hill's [recent Auth 2.0 walkthrough](https://stepzen.com/blog/sequence-oauth).
+Here's how, using <code>@sequence</code>, we loop an Auth call into our Spotify track search in just three steps (a simplified version of Sam Hill's [recent Auth 2.0 walkthrough](https://stepzen.com/blog/sequence-oauth).)
 
 
 **1. Add Spotify Auth type and query to our Spotify GraphQL**
