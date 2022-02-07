@@ -52,7 +52,7 @@ export async function getStepzen(query: string){
                 articleBody
               }
             }
-            name
+            track
             trackInfo {
               name
               description
