@@ -10,7 +10,7 @@ But with a few tricks culled from recent tutorials by GraphQL blogger [Jamie Bar
 
 **Trick 1: Plug in any GraphQL endpoint**
 
-Jamie Barton I credit with the basic template I’m swiping here: [Working with Remix, GraphQL, and GraphCMS](https://graphcms.com/blog/working-with-remix-and-graphql), a simplest-possible GraphQL-driven Remix project with params-driven route loading. Like StepZen, GraphCMS provides developers with a single GraphQL endpoint, ensuring that instructions for hooking up one GraphQL service work as instructions for hooking up all GraphQL services.
+Jamie Barton I credit with the basic template I’m swiping here: [_**Working with Remix, GraphQL, and GraphCMS**_](https://graphcms.com/blog/working-with-remix-and-graphql), a simplest-possible GraphQL-driven Remix project with params-driven route loading. Like StepZen, GraphCMS provides developers with a single GraphQL endpoint, ensuring that instructions for hooking up one GraphQL service work as instructions for hooking up all GraphQL services.
 
 
 ```vim
@@ -21,7 +21,7 @@ Jamie's quickstart is perfectly replicable as is, but rather than import Prisma 
 
 **Trick 2: Use the basic Fetch API for GraphQL**
 
-Towards the end of Jason Lengstorf’s highly recommended [framework demo with Remix co-creator Ryan Florence](https://www.youtube.com/watch?v=pDdmF9ZhhAA), he reminds us of the simple pattern for querying GraphQL endpoints using fetch, which he’d written up earlier as a [no-nonsense how-to](https://www.netlify.com/blog/2020/12/21/send-graphql-queries-with-the-fetch-api-without-using-apollo-urql-or-other-graphql-clients/). Adapted to my spotify_Search query, my server-side GraphQL loader looks like so:
+Towards the end of Jason Lengstorf’s highly recommended [framework walkthrough with Remix co-creator Ryan Florence](https://www.youtube.com/watch?v=pDdmF9ZhhAA), he reminds us of the simple pattern for querying GraphQL endpoints using the Fetch API, which he’d detailed earlier as a [no-nonsense how-to](https://www.netlify.com/blog/2020/12/21/send-graphql-queries-with-the-fetch-api-without-using-apollo-urql-or-other-graphql-clients/). Adapted to my <code>spotify_Search_With_Token</code> query, my server-side GraphQL loader looks like so:
 
 
 ```js
@@ -80,9 +80,9 @@ export async function getStepzen(query: string){
 ```
 Whether the syntax of graphql-request makes such a query any more readable, you'll have to judge for yourself. (I find them largely equivalent.)
 
-**Trick 3: Use Remix’s useSearchParams to track queries**
+**Trick 3: Use Remix’s <code>useSearchParams</code> to track queries**
 
-As far as building a simple search-input demo, I found [Jack Herrington’s Pokemon-themed speed-run](https://www.youtube.com/watch?v=rgZkd-RAYfE) to provide a slightly easier template than [Kent C. Dodd’s search-input example](https://github.com/remix-run/remix/blob/main/examples/search-input/app/routes/index.tsx), particularly Jack’s post-tutorial insertion of Remix’s useSearchParams hook, which he references in a pinned YouTube comment. 
+As far as building a simple search-input demo, I found [Jack Herrington’s Pokemon-themed speed-run](https://www.youtube.com/watch?v=rgZkd-RAYfE) to provide a slightly easier template than [Kent C. Dodd’s search-input example](https://github.com/remix-run/remix/blob/main/examples/search-input/app/routes/index.tsx), particularly Jack’s post-tutorial insertion of Remix’s <code>useSearchParams</code> hook, which he references in a pinned YouTube comment. 
 
 ```js
 export default function Stepzen() {
