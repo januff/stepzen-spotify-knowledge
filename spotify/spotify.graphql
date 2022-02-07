@@ -51,14 +51,14 @@ type Spotify_Track {
         { name: "types" argument: "types" }
       ]
     )
-  name: String
+  track: String
   trackInfo(
       types: String = "Thing"
     ): [GoogleKnowledgeGraph_Item]
     @materializer(
       query: "googleKnowledgeGraph_search"
       arguments: [
-        { name: "query" field: "name" }
+        { name: "query" field: "track" }
         { name: "types" argument: "types" }
       ]
     )  
@@ -92,7 +92,7 @@ type Query {
         { field: "type", path: "tracks.items[].type" }
         { field: "uri", path: "tracks.items[].uri" }
         { field: "href", path: "tracks.href" }
-        { field: "name", path: "tracks.items[].name" }
+        { field: "track", path: "tracks.items[].name" }
         { field: "popularity", path: "tracks.items[].popularity" }
         { field: "preview_url", path: "tracks.items[].preview_url" }
         { field: "track_number", path: "tracks.items[].track_number" }
