@@ -81,7 +81,7 @@ export async function getStepzen(query: string){
 
 **Trick 3: Use Remix’s useSearchParams to track queries**
 
-As far as build a simple search-input demo around an external API, I found [Jack Herrington’s Pokemon-themed speed-run](https://www.youtube.com/watch?v=rgZkd-RAYfE) to provide a slightly easier template than [Kent C. Dodd’s search-input example](https://github.com/remix-run/remix/blob/main/examples/search-input/app/routes/index.tsx), particularly Jack’s post-tutorial insertion of Remix’s useSearchParams hook, which he references in a pinned YouTube comment. 
+As far as building a simple search-input demo, I found [Jack Herrington’s Pokemon-themed speed-run](https://www.youtube.com/watch?v=rgZkd-RAYfE) to provide a slightly easier template than [Kent C. Dodd’s search-input example](https://github.com/remix-run/remix/blob/main/examples/search-input/app/routes/index.tsx), particularly Jack’s post-tutorial insertion of Remix’s useSearchParams hook, which he references in a pinned YouTube comment. 
 
 ```js
 export default function Stepzen() {
