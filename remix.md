@@ -2,9 +2,9 @@
 
 Two Next.js choices that always leave me a bit nervous: choosing a pre-rendering strategy (server or static or incremental?) and choosing a data hooks library (Apollo or react-query or urql?) So when an insurgent web framework like Remix emerges, suggesting I might [be better off choosing neither](https://remix.run/blog/remix-vs-next), I start looking for any excuse to install it.
 
-Happily, some of DevRel’s craftiest React specialists have been feeling the same way, leaving me with a fresh pile of Remix quickstarts to answer the question my StepZen endpoints had me wondering: what’s the most concise pairing of a Remix app and a StepZen backend?
+Happily, some of DevRel’s craftiest React specialists must have been feeling the same way, leaving me with a fresh pile of Remix quickstarts to answer the question my StepZen endpoints had me wondering: what’s the most concise pairing of a Remix app and a StepZen backend?
 
-Which is not to say Remix’s own docs aren’t fairly exhaustive–besides their ecosystem credentials, the Remix team shares long stints in React training, which pays off in carefully illuminating site docs and YouTube nuggets. But as far as I could tell, they’d not yet put forth guidance on my specific question: _**how best to hook up a GraphQL endpoint to a Remix app, if possible without external dependencies**_.
+Which is not to say Remix’s own docs aren’t [sufficiently instructive](https://remix.run/docs/en/v1/tutorials/blog)–besides their ecosystem credentials, the Remix team shares long stints in React training, which pays off in carefully illuminating site docs and YouTube nuggets. But as far as I could tell, they’d not yet put forth guidance on my specific question: _how best to hook up a GraphQL endpoint to a Remix app, without external dependencies if possible_.
 
 But with a few tricks culled from recent tutorials by GraphQL blogger [Jamie Barton](https://graphql.wtf/), JS live-streamer [Jason Lengstorf](https://twitter.com/jlengstorf), and advanced FE YouTuber [Jack Herrington](https://www.jackherrington.com/), I was surprised to learn how little time and code it takes to do precisely that.
 
