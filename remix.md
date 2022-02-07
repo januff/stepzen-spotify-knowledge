@@ -1,8 +1,8 @@
 ## Working With Remix, GraphQL, and StepZen ##
 
-Two Next.js choices that always leave me a bit nervous: choosing a pre-rendering strategy (server or static or incremental?) and choosing a data hooks library (Apollo or react-query or urql?) So when an upstart web framework like Remix emerges, suggesting I might [be better off choosing neither](https://remix.run/blog/remix-vs-next), I start looking for any excuse to install it.
+Two Next.js choices that always leave me a bit nervous: choosing a pre-rendering strategy (server or static or incremental?) and choosing a data hooks library (Apollo or react-query or urql?) So when an insurgent web framework like Remix emerges, suggesting I might [be better off choosing neither](https://remix.run/blog/remix-vs-next), I start looking for any excuse to install it.
 
-Happily, some of DevRel’s craftiest React specialists have been feeling the same way, leaving me with a fresh pile of Remix quickstarts to answer the question my new StepZen endpoints had me wondering: what’s the most concise pairing of a Remix app and a StepZen backend?
+Happily, some of DevRel’s craftiest React specialists have been feeling the same way, leaving me with a fresh pile of Remix quickstarts to answer the question my StepZen endpoints had me wondering: what’s the most concise pairing of a Remix app and a StepZen backend?
 
 Which is not to say Remix’s own docs aren’t fairly exhaustive–besides their ecosystem credentials, the Remix team shares long stints in React training, which pays off in carefully illuminating site docs and YouTube nuggets. But as far as I could tell, they’d not yet put forth guidance on my specific question: _**how best to hook up a GraphQL endpoint to a Remix app, if possible without external dependencies**_.
 
@@ -10,32 +10,28 @@ But with a few tricks culled from recent tutorials by GraphQL blogger [Jamie Bar
 
 **Trick 1: Plug in any GraphQL endpoint**
 
-Jamie Barton I credit with the basic template I’m swiping here: a [simplest-possible GraphQL-driven Remix project with params-driven route loading](https://graphcms.com/blog/working-with-remix-and-graphql). Like StepZen, GraphCMS provides developers with a single GraphQL endpoint, ensuring that a tutorial for one GraphQL service works as a tutorial for all GraphQL services.
+Jamie Barton I credit with the basic template I’m swiping here: a [simplest-possible GraphQL-driven Remix project with params-driven route loading](https://graphcms.com/blog/working-with-remix-and-graphql). Like StepZen, GraphCMS provides developers with a single GraphQL endpoint, ensuring that instructions for hooking up one GraphQL service work as instructions for hooking up all GraphQL services.
 
 
-```js
-export const meta: MetaFunction = () => {
-  return {
-    title: "StepZen Remix",
-    description: "Knowledge-annotated Spotify data"
-  };
-};
-
-export const loader = ({ request }) => {
-  const url = new URL(request.url);
-  const q = url.searchParams.get("search") ?? "Beatles Norwegian Wood";
-  return getStepzen(q);
-};
+```vim
+npm install graphql-request graphql
 ```
 
 Jamie's quickstart is perfectly replicable as is, but rather than import Prisma Lab's graphql-request client as he does, it seemed fitting–given Remix's emphasis on platform APIs–to try refactoring it to use the Fetch API, which Remix already polyfills on the server.
 
 **Trick 2: Use the basic Fetch API for GraphQL**
 
-Towards the end of Jason Lengstorf’s highly recommended [framework demo with Remix co-creator Ryan Florence](https://www.youtube.com/watch?v=pDdmF9ZhhAA), he reminds us of the simple pattern for querying GraphQL endpoints using fetch, which he’d written up earlier as a [no-nonsense how-to](https://www.netlify.com/blog/2020/12/21/send-graphql-queries-with-the-fetch-api-without-using-apollo-urql-or-other-graphql-clients/). Adapted to my spotify_Search query, called from my server-side loader function above, my GraphQL getter looks like so:
+Towards the end of Jason Lengstorf’s highly recommended [framework demo with Remix co-creator Ryan Florence](https://www.youtube.com/watch?v=pDdmF9ZhhAA), he reminds us of the simple pattern for querying GraphQL endpoints using fetch, which he’d written up earlier as a [no-nonsense how-to](https://www.netlify.com/blog/2020/12/21/send-graphql-queries-with-the-fetch-api-without-using-apollo-urql-or-other-graphql-clients/). Adapted to my spotify_Search query, my server-side GraphQL loader looks like so:
 
 
 ```js
+
+export const loader = ({ request }) => {
+  const url = new URL(request.url);
+  const q = url.searchParams.get("search") ?? "Beatles Norwegian Wood";
+  return getStepzen(q);
+};
+
 export async function getStepzen(query: string){
   let res = await fetch(`${process.env.STEPZEN_ENDPOINT}`, {
     method: "POST",
