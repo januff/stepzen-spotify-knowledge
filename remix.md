@@ -21,7 +21,9 @@ Jamie's quickstart is perfectly replicable as is, but rather than import Prisma 
 
 **Trick 2: Use the basic Fetch API for GraphQL**
 
-Towards the end of Jason Lengstorf’s highly recommended [framework walkthrough with Remix co-creator Ryan Florence](https://www.youtube.com/watch?v=pDdmF9ZhhAA), he reminds us of the simple pattern for querying GraphQL endpoints using the Fetch API, which he’d detailed earlier as a [no-nonsense how-to](https://www.netlify.com/blog/2020/12/21/send-graphql-queries-with-the-fetch-api-without-using-apollo-urql-or-other-graphql-clients/). Adapted to my <code>spotify_Search_With_Token</code> query, my server-side GraphQL loader looks like so:
+Towards the end of Jason Lengstorf’s highly recommended [framework walkthrough with Remix co-creator Ryan Florence](https://www.youtube.com/watch?v=pDdmF9ZhhAA), he reminds us of the simple pattern for querying GraphQL endpoints using the Fetch API, which he’d detailed earlier as a [no-nonsense how-to](https://www.netlify.com/blog/2020/12/21/send-graphql-queries-with-the-fetch-api-without-using-apollo-urql-or-other-graphql-clients/). (In short: specify a method, include headers, and <code>JSON.stringify()</code> the body.) 
+
+Adapted to my <code>spotify_Search_With_Token</code> query, my server-side StepZen loader looks like this:
 
 
 ```js
