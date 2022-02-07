@@ -10,7 +10,7 @@ But with a few tricks culled from recent tutorials by GraphQL blogger [Jamie Bar
 
 **Trick 1: Plug in any GraphQL endpoint**
 
-Jamie Barton I credit with the basic template I’m swiping here: a [simplest-possible GraphQL-driven Remix project with params-driven route loading](https://graphcms.com/blog/working-with-remix-and-graphql). Like StepZen, GraphCMS provides developers with a single GraphQL endpoint, ensuring that instructions for hooking up one GraphQL service work as instructions for hooking up all GraphQL services.
+Jamie Barton I credit with the basic template I’m swiping here: [Working with Remix, GraphQL, and GraphCMS](https://graphcms.com/blog/working-with-remix-and-graphql), a simplest-possible GraphQL-driven Remix project with params-driven route loading. Like StepZen, GraphCMS provides developers with a single GraphQL endpoint, ensuring that instructions for hooking up one GraphQL service work as instructions for hooking up all GraphQL services.
 
 
 ```vim
@@ -78,6 +78,7 @@ export async function getStepzen(query: string){
   return res.json();
 }
 ```
+Whether the syntax of graphql-request makes such a query any more readable, you'll have to judge for yourself. (I find them largely equivalent.)
 
 **Trick 3: Use Remix’s useSearchParams to track queries**
 
