@@ -16,9 +16,9 @@ export const meta: MetaFunction = () => {
 
 export const loader: LoaderFunction = ({ request }) => {
   const url = new URL(request.url);
-  const q = url.searchParams.get("search") ?? "Beatles Norwegian Wood";
-  console.log("q from loader", q);
-  return getStepzen(q);
+  const query = url.searchParams.get("search") ?? "Beatles Norwegian Wood";
+  console.log("query from loader", query);
+  return getStepzen(query);
 };
 
 export async function getStepzen(query: string){
