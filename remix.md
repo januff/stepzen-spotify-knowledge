@@ -130,7 +130,7 @@ export default function Stepzen() {
   );
 ```
 
-Using this approach, defining separate params-based routes isn't even necessary: the search params query in the URL already specifies the route.
+Using this approach, defining separate params-based routes isn't even necessary: the search params in the URL already specifies a route.
 
 <p align="center">
   <img src="././images/remix.png"/>
