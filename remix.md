@@ -132,10 +132,12 @@ export default function Stepzen() {
 
 Using this approach, defining separate params-based routes isn't even necessary: the search params query in the URL already specifies the route.
 
-Herrington’s video helpfully walks you through a quick Tailwind installation (also [well-explained on the Tailwind site](https://tailwindcss.com/docs/guides/remix)) but I've kept my CSS simple here, at least while I'm still learning the Remix basics.
-
 <p align="center">
   <img src="././images/remix.png"/>
 </p>
+
+Herrington’s video helpfully walks you through a quick Tailwind installation (also [well-explained on the Tailwind site](https://tailwindcss.com/docs/guides/remix)) but I've kept my CSS simple here, at least while I'm still learning the Remix basics.
+
+
 
 
