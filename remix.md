@@ -10,7 +10,7 @@ Happily, some of DevRel’s craftiest React specialists must have been feeling t
 
 Which is not to say Remix’s own docs aren’t [sufficiently instructive](https://remix.run/docs/en/v1/tutorials/blog)–besides their ecosystem credentials, the Remix team shares long stints in React training, which pays off in carefully illuminating site docs and YouTube nuggets. But as far as I could tell, they’d not yet put forth guidance on my specific question: _**how best to hook up a GraphQL endpoint to a Remix app, preferably with no external dependencies**_. 
 
-But with a few tricks culled from recent tutorials by GraphQL blogger [Jamie Barton](https://graphql.wtf/), JS live-streamer [Jason Lengstorf](https://twitter.com/jlengstorf), and advanced FE YouTuber [Jack Herrington](https://www.jackherrington.com/), I was surprised to learn how little time and code it takes to do precisely that.
+But with a few tricks culled from recent tutorials by GraphQL blogger [Jamie Barton](https://graphql.wtf/), JS live-streamer [Jason Lengstorf](https://twitter.com/jlengstorf), and advanced FE YouTuber [Jack Herrington](https://www.jackherrington.com/), I was surprised to learn how little time and code it takes to make that happen.
 
 **Trick 1: Plug in any GraphQL endpoint**
 
