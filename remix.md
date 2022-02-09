@@ -110,13 +110,13 @@ export default function Index() {
         <button type="submit">Spotify + Knowledge</button>
     </Form>
       <main>
-        { song.name ? (
+        { song ? (
           <div className="song-info">
-            <h4>{song.name}</h4>
+            <h4>{song.track}</h4>
             <h5>{song.trackInfo[0]?.detailedDescription?.articleBody || song.trackInfo[0]?.description || ""}</h5>
-            <h4>{song.artists ? song.artists : ""}</h4>
+            <h4>{song.artists}</h4>
             <h5>{song.artistsInfo[0]?.detailedDescription?.articleBody || song.artistsInfo[0]?.description || ""}</h5>
-            <h4>{song.album ? song.album: ""}</h4>
+            <h4>{song.album}</h4>
             <h5>{song.albumInfo[0]?.detailedDescription?.articleBody || song.albumInfo[0]?.description || ""}</h5>
           </div>
         )  : <h4>No Results</h4> }
