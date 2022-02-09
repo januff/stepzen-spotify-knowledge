@@ -33,11 +33,11 @@ Adapted to my <code>spotify_Search_With_Token</code> query, a GraphQL Fetch from
 ```js
 export const loader = ({ request }) => {
   const url = new URL(request.url);
-  const query = url.searchParams.get("search") ?? "Beatles Norwegian Wood";
-  return getStepzen(query);
+  const search = url.searchParams.get("search") ?? "Beatles Norwegian Wood";
+  return getStepzen(search);
 };
 
-export async function getStepzen(query: string){
+export async function getStepzen(search: string){
   let res = await fetch(`${process.env.STEPZEN_ENDPOINT}`, {
     method: "POST",
     headers: {
@@ -76,7 +76,7 @@ export async function getStepzen(query: string){
           }
         }`,
       variables: {
-        query: query,
+        query: search,
       },
     }),
   })

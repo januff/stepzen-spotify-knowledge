@@ -10,19 +10,19 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => {
   return {
     title: "Remix && StepZen",
-    description: "Knowledge-annotated Spotify data"
+    description: "Knowledge-annotated Spotify search"
   };
 };
 
 export const loader: LoaderFunction = ({ request }) => {
   const url = new URL(request.url);
-  const query = url.searchParams.get("search") ?? "Beatles Norwegian Wood";
-  console.log("query from loader", query);
-  return getStepzen(query);
+  const search = url.searchParams.get("search") ?? "Beatles Norwegian Wood";
+  // console.log("search from loader", search);
+  return getStepzen(search);
 };
 
-export async function getStepzen(query: string){
-  console.log("process.env.STEPZEN_ENDPOINT", process.env.STEPZEN_ENDPOINT);
+export async function getStepzen(search: string){
+  // console.log("process.env.STEPZEN_ENDPOINT", process.env.STEPZEN_ENDPOINT);
   let res = await fetch(`${process.env.STEPZEN_ENDPOINT}`, {
     method: "POST",
     headers: {
@@ -61,17 +61,15 @@ export async function getStepzen(query: string){
           }
         }`,
       variables: {
-        query: query,
+        query: search,
       },
     }),
   })
-  console.log("res", res)
+  // console.log("res", res)
   return res.json();
 }
 
 export default function Index() {
-  // const data  = useLoaderData();
-  // console.log('all data from loader', data)
   const { spotify_Search_With_Token: song } = useLoaderData().data;
   // console.log('song from component', song)
   const [search, setSearch] = useState(useSearchParams()[0].get("search") ?? "");
