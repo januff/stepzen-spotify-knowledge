@@ -4,7 +4,7 @@
 
 Two Next.js choices that always make me a little nervous: choosing a pre-rendering strategy (server or static or incremental?) and choosing a data hooks library (Apollo or react-query or urql?) So when a new web framework like Remix emerges, suggesting I might [be better off choosing neither](https://remix.run/blog/remix-vs-next), any excuse to install it will do.
 
-Happily, some of DevRel’s craftiest React specialists must have been feeling the same way, leaving me with all the Remix quickstarts I need to answer the question: what’s the simplest pairing of a Remix app and a StepZen endpoint?
+Happily, some of DevRel’s craftiest React specialists must have been feeling the same way, leaving me with everything I need to answer the question: what’s the simplest pairing of a Remix app and a StepZen endpoint?
 
 <p align="center">
   <img src="././images/remixdata.png"/>
@@ -132,8 +132,10 @@ export default function Stepzen() {
 
 Using this approach, defining separate params-based routes isn't even necessary: the search params query in the URL already specifies the route.
 
+Herrington’s video helpfully walks you through a quick Tailwind installation (also [well-explained on the Tailwind site](https://tailwindcss.com/docs/guides/remix)) but I've kept my CSS simple here, at least while I'm still learning the Remix basics.
+
 <p align="center">
   <img src="././images/remix.png"/>
 </p>
 
-Herrington’s video helpfully walks you through a quick Tailwind installation (also [well-explained on the Tailwind site](https://tailwindcss.com/docs/guides/remix)) but I've kept my CSS simple here, at least while I'm still learning the Remix basics.
+
