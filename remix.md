@@ -94,7 +94,6 @@ As far as building a simple search-input demo, I found [Jack Herrington’s Poke
 
 ```js
 export default function Index() {
-
   const data  = useLoaderData();
   const { spotify_Search_With_Token: song } = useLoaderData().data;
   const [search, setSearch] = useState(useSearchParams()[0].get("search") ?? "");
