@@ -31,7 +31,6 @@ Adapted to my <code>spotify_Search_With_Token</code> query, a GraphQL Fetch from
 
 
 ```js
-
 export const loader = ({ request }) => {
   const url = new URL(request.url);
   const query = url.searchParams.get("search") ?? "Beatles Norwegian Wood";
