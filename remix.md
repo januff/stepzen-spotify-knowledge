@@ -25,7 +25,7 @@ npm install graphql-request graphql
 
 Jamie's quickstart is perfectly replicable as is, but rather than import Prisma Lab's graphql-request client as he does, it seemed fitting–given Remix's hard preference for platform APIs–to try refactoring it to use the Web Fetch API (which Remix already polyfills on the server.)
 
-**Trick 2: Use the basic Fetch API for GraphQL**
+**Trick 2: Use the basic Web Fetch API for GraphQL**
 
 Towards the end of Jason Lengstorf’s highly recommended [framework walkthrough with Remix co-creator Ryan Florence](https://www.youtube.com/watch?v=pDdmF9ZhhAA), he reminds us of the simple pattern for querying GraphQL endpoints using the Fetch API, which he’d detailed earlier as a [no-nonsense how-to](https://www.netlify.com/blog/2020/12/21/send-graphql-queries-with-the-fetch-api-without-using-apollo-urql-or-other-graphql-clients/). (In short: specify a method, include headers, and <code>JSON.stringify()</code> the body.) 
 
