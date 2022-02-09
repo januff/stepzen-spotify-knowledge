@@ -23,3 +23,16 @@ This repo contains the code referenced in the post below, a quick walkthrough of
 <p align="center">
   <img src="././images/spotifywithtoken.png"/>
 </p>
+
+<br/>
+
+- **[Working With Remix, GraphQL, and Stepzen](././remix.md): how best to hook up a Remix app with a GraphQL endpoint (no external dependencies)**
+
+
+  > Jamie Barton I credit with the basic template I’m swiping here: [_**Working with Remix, GraphQL, and GraphCMS**_](https://graphcms.com/blog/working-with-remix-and-graphql), a simplest-possible GraphQL-driven Remix quickstart with params-driven route loading.
+
+<br/>
+
+<p align="center">
+  <img src="././images/remix.png"/>
+</p>

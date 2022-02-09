@@ -1,10 +1,16 @@
 ## Working With Remix, GraphQL, and StepZen ##
 
-Two Next.js choices that always leave me a bit nervous: choosing a pre-rendering strategy (server or static or incremental?) and choosing a data hooks library (Apollo or react-query or urql?) So when an insurgent web framework like Remix emerges, suggesting I might [be better off choosing neither](https://remix.run/blog/remix-vs-next), I start looking for any excuse to install it.
 
-Happily, some of DevRel’s craftiest React specialists must have been feeling the same way, leaving me with a fresh pile of Remix quickstarts to answer the question my StepZen endpoints had me wondering: what’s the most concise pairing of a Remix app and a StepZen backend?
 
-Which is not to say Remix’s own docs aren’t [sufficiently instructive](https://remix.run/docs/en/v1/tutorials/blog)–besides their ecosystem credentials, the Remix team shares long stints in React training, which pays off in carefully illuminating site docs and YouTube nuggets. But as far as I could tell, they’d not yet put forth guidance on my specific question: _how best to hook up a GraphQL endpoint to a Remix app, without external dependencies if possible_.
+Two Next.js choices that always make me a little nervous: choosing a pre-rendering strategy (server or static or incremental?) and choosing a data hooks library (Apollo or react-query or urql?) So when a new web framework like Remix emerges, suggesting I might [be better off choosing neither](https://remix.run/blog/remix-vs-next), any excuse to install it will do.
+
+Happily, some of DevRel’s craftiest React specialists must have been feeling the same way, leaving me with all the Remix quickstarts I need to answer the question: what’s the simplest pairing of a Remix app and a StepZen endpoint?
+
+<p align="center">
+  <img src="././images/remixdata.png"/>
+</p>
+
+Which is not to say Remix’s own docs aren’t [sufficiently instructive](https://remix.run/docs/en/v1/tutorials/blog)–besides their ecosystem credentials, the Remix team shares long stints in React training, which pays off in carefully illuminating site docs and YouTube nuggets. But as far as I could tell, they’d not yet put forth guidance on my specific question: _**how best to hook up a GraphQL endpoint to a Remix app, preferably no external dependencies**_. 
 
 But with a few tricks culled from recent tutorials by GraphQL blogger [Jamie Barton](https://graphql.wtf/), JS live-streamer [Jason Lengstorf](https://twitter.com/jlengstorf), and advanced FE YouTuber [Jack Herrington](https://www.jackherrington.com/), I was surprised to learn how little time and code it takes to do precisely that.
 
@@ -17,13 +23,13 @@ Jamie Barton I credit with the basic template I’m swiping here: [_**Working wi
 npm install graphql-request graphql
 ```
 
-Jamie's quickstart is perfectly replicable as is, but rather than import Prisma Lab's graphql-request client as he does, it seemed fitting–given Remix's emphasis on platform APIs–to try refactoring it to use the Fetch API, which Remix already polyfills on the server.
+Jamie's quickstart is perfectly replicable as is, but rather than import Prisma Lab's graphql-request client as he does, it seemed fitting–given Remix's hard preference for platform APIs–to try refactoring it to use the Web Fetch API (which Remix already polyfills on the server.)
 
 **Trick 2: Use the basic Fetch API for GraphQL**
 
 Towards the end of Jason Lengstorf’s highly recommended [framework walkthrough with Remix co-creator Ryan Florence](https://www.youtube.com/watch?v=pDdmF9ZhhAA), he reminds us of the simple pattern for querying GraphQL endpoints using the Fetch API, which he’d detailed earlier as a [no-nonsense how-to](https://www.netlify.com/blog/2020/12/21/send-graphql-queries-with-the-fetch-api-without-using-apollo-urql-or-other-graphql-clients/). (In short: specify a method, include headers, and <code>JSON.stringify()</code> the body.) 
 
-Adapted to my <code>spotify_Search_With_Token</code> query, my server-side StepZen loader looks like this:
+Adapted to my <code>spotify_Search_With_Token</code> query, a GraphQL Fetch from my index page loader looks like this:
 
 
 ```js
@@ -84,7 +90,7 @@ Whether the syntax of graphql-request makes such a query any more readable, you'
 
 **Trick 3: Use Remix’s <code>useSearchParams</code> to track queries**
 
-As far as building a simple search-input demo, I found [Jack Herrington’s Pokemon-themed speed-run](https://www.youtube.com/watch?v=rgZkd-RAYfE) to provide a slightly easier template than [Kent C. Dodd’s search-input example](https://github.com/remix-run/remix/blob/main/examples/search-input/app/routes/index.tsx), particularly Jack’s post-tutorial insertion of Remix’s <code>useSearchParams</code> hook, which he references in a pinned YouTube comment. 
+As far as building a simple search-input demo, I found [Jack Herrington’s Pokemon-themed speed-run on YouTube](https://www.youtube.com/watch?v=rgZkd-RAYfE) to provide a slightly easier template than [Kent C. Dodd’s search-input example](https://github.com/remix-run/remix/blob/main/examples/search-input/app/routes/index.tsx), particularly Jack’s post-tutorial insertion of Remix’s <code>useSearchParams</code> hook, which he references in a pinned YouTube comment. 
 
 ```js
 export default function Stepzen() {
@@ -126,4 +132,8 @@ export default function Stepzen() {
 
 Using this approach, defining separate params-based routes isn't even necessary: the search params query in the URL already specifies the route.
 
-<!-- Herrington’s video also walks us through a quick installation of Tailwind, which is also [well-explained on the Tailwind site](https://tailwindcss.com/docs/guides/remix). -->
+<p align="center">
+  <img src="././images/remix.png"/>
+</p>
+
+Herrington’s video helpfully walks you through a quick Tailwind installation (also [well-explained on the Tailwind site](https://tailwindcss.com/docs/guides/remix)) but I've kept my CSS simple here, at least while I'm still learning the Remix basics.

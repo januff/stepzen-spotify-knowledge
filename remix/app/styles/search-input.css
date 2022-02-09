@@ -1,0 +1,89 @@
+/*
+ * when the user visits this page, this style will apply, when they leave, it
+ * will get unloaded, so don't worry so much about conflicting styles between
+ * pages!
+ */
+
+nav * {
+  height: 14px;
+  margin-right: 3px;
+  display: inline;
+}
+
+nav {
+  margin-bottom: 10px;
+}
+
+ .stepzen {
+  color: black;
+  max-width: 600px;
+  padding: 24px;
+  margin: 0 auto;
+  border-radius: 8px;
+  background: linear-gradient(#93a5cf, #e4efe9);
+}
+
+.search-form {
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.search-form input {
+  height: 40px;
+  background: #f8fafc;
+  border: none;
+  border-radius: 4px;
+  padding: 0 16px;
+  margin-right: 16px;
+  color: #0f172a;
+}
+
+.search-form button {
+  height: 40px;
+  background: #f43f5e;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.song-info {
+  font-size: 1em;
+  margin-top: 20px;
+}
+
+h4 {
+  color: black;
+}
+
+h4:after {
+  display: inline;
+  content: ' ';
+  background-image: url('../../spotify.svg');
+  background-size: 16px 16px;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  margin: 4px 0 0 5px;
+}
+
+h5 {
+  background-color: #f8fafc;;
+  padding: 14px;
+  border-radius: 4px;
+  color: black;
+  font-weight: normal;
+}
+
+h5:after {
+  display: inline;
+  content: ' ';
+  background-image: url('../../google.svg');
+  background-size: 12px 12px;
+  height: 12px;
+  width: 12px;
+  position: absolute;
+  margin: 3px 0 0 4px;
+}
