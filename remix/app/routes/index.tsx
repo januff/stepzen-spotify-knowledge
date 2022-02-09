@@ -77,7 +77,7 @@ export default function Index() {
   const [search, setSearch] = useState(useSearchParams()[0].get("search") ?? "");
 
   return (
-    <div className="stepzen">
+    <div className="remix-stepzen">
       <nav>
       <img src="../../favicon.ico"/><h3>Remix, <img src="../../graphql.svg"/>GraphQL, and <img src="../../stepzen.svg"/>StepZen</h3>
       </nav>

@@ -93,14 +93,14 @@ Whether the syntax of graphql-request makes such a query any more readable, you'
 As far as building a simple search-input demo, I found [Jack Herrington’s Pokemon-themed speed-run on YouTube](https://www.youtube.com/watch?v=rgZkd-RAYfE) to provide a slightly easier template than [Kent C. Dodd’s search-input example](https://github.com/remix-run/remix/blob/main/examples/search-input/app/routes/index.tsx), particularly Jack’s post-tutorial insertion of Remix’s <code>useSearchParams</code> hook, which he references in a pinned YouTube comment. 
 
 ```js
-export default function Stepzen() {
+export default function Index() {
 
   const data  = useLoaderData();
   const { spotify_Search_With_Token: song } = useLoaderData().data;
   const [search, setSearch] = useState(useSearchParams()[0].get("search") ?? "");
 
   return (
-    <div className="stepzen">
+    <div className="remix-stepzen">
       <nav>
         <h3>Remix, GraphQL, and StepZen</h3>
       </nav>
