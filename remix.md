@@ -136,7 +136,7 @@ Using this approach, defining separate params-based routes isn't even necessary:
   <img src="././images/remix.png"/>
 </p>
 
-Herrington’s video helpfully walks you through a quick Tailwind installation (also [well-explained on the Tailwind site](https://tailwindcss.com/docs/guides/remix)) but I've opted to keep my CSS simple for now, at least while I'm still learning the Remix basics.
+Herrington’s video helpfully walks you through a quick Tailwind installation (also [well-explained on the Tailwind site](https://tailwindcss.com/docs/guides/remix)) but I've opted to keep my CSS simple for now, at least while I'm still learning my Remix fundamentals.
 
 
 
