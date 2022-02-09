@@ -86,7 +86,7 @@ export async function getStepzen(query: string){
   return res.json();
 }
 ```
-Whether the syntax of graphql-request makes such a query any more readable, you'll have to judge for yourself. (I find them equally comprehensible, it's just nice to skip the import.)
+Whether the syntax of graphql-request makes such a query any more readable, you'll have to judge for yourself. (I find them equally comprehensible, I just dig to omit imports.)
 
 **Trick 3: Use Remix’s <code>useSearchParams</code> to track search state**
 
