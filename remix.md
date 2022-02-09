@@ -125,7 +125,7 @@ export default function Index() {
   );
 ```
 
-Using this approach, defining separate params-based routes isn't even necessary: the search params in the URL already define a route.
+Using this approach, defining separate params-based routes isn't even necessary: the search params in the URL already specify a route.
 
 <p align="center">
   <img src="././images/remix.png"/>
