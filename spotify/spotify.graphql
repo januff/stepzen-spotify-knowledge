@@ -31,7 +31,7 @@ type Query {
 type Spotify_Track {
   album: String
   albumInfo(
-      types: String = "MusicAlbum"
+      types: [String] = ["MusicAlbum"]
     ): [GoogleKnowledgeGraph_Item]
     @materializer(
       query: "googleKnowledgeGraph_search"
@@ -43,7 +43,7 @@ type Spotify_Track {
     )
   artists: String
   artistsInfo(
-      types: String = "MusicGroup"
+      types: [String] = ["Person","MusicGroup"]
     ): [GoogleKnowledgeGraph_Item]
     @materializer(
       query: "googleKnowledgeGraph_search"
@@ -54,7 +54,7 @@ type Spotify_Track {
     )
   track: String
   trackInfo(
-      types: String = "MusicRecording"
+      types: [String] = ["MusicRecording"]
     ): [GoogleKnowledgeGraph_Item]
     @materializer(
       query: "googleKnowledgeGraph_search"
