@@ -37,13 +37,12 @@ type Spotify_Track {
       query: "googleKnowledgeGraph_search"
       arguments: [
         { name: "query" field: "album" }
-        { name: "query" field: "artists" }
         { name: "types" argument: "types" }
       ]
     )
   artists: String
   artistsInfo(
-      types: [String] = ["Person","MusicGroup"]
+      types: [String] = ["MusicGroup", "Person"]
     ): [GoogleKnowledgeGraph_Item]
     @materializer(
       query: "googleKnowledgeGraph_search"
