@@ -183,7 +183,10 @@ type Query {
 
 
 
-# Unused queries and types from StepZen's GraphQL Studio export:
+# Unused types from StepZen's exported GraphQL
+# Studio template for the Spotify API:
+#
+# https://graphql.stepzen.com/spotify
 
 # type Query {
 #   """
