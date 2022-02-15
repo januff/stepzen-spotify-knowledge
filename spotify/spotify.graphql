@@ -1,5 +1,71 @@
+type Spotify_Track {
+  id: ID
+  artist: String
+  track: String
+  album: String
+  artistTrack: String
+  artistAlbum: String
+  artistInfo(
+      types: [String] = ["Person", "MusicGroup"]
+    ): [GoogleKnowledgeGraph_Item]
+    @materializer(
+      query: "googleKnowledgeGraph_search"
+      arguments: [
+        { name: "query" field: "artist" }
+        { name: "types" argument: "types" }
+      ]
+    )
+  trackInfo(
+      types: [String] = ["MusicRecording"]
+    ): [GoogleKnowledgeGraph_Item]
+    @materializer(
+      query: "googleKnowledgeGraph_search"
+      arguments: [
+        { name: "query" field: "artistTrack" }
+        { name: "types" argument: "types" }
+      ]
+    )  
+  albumInfo(
+      types: [String] = ["MusicAlbum"]
+    ): [GoogleKnowledgeGraph_Item]
+    @materializer(
+      query: "googleKnowledgeGraph_search"
+      arguments: [
+        { name: "query" field: "artistAlbum" }
+        { name: "types" argument: "types" }
+      ]
+    )
+}
+
 type Spotify_Auth {
   access_token: String!
+}
+
+type ArtistAlbum {
+  artistAlbum: String
+}
+
+type ArtistTrack {
+  artistTrack: String
+}
+
+type Query {
+  spotify_Search_Sequence(
+    q: String!
+  ): Spotify_Track
+    @sequence(
+      steps: [
+        { query: "get_auth" }
+        { query: "spotify_Search"
+          arguments: [
+            { name: "q", argument: "q" }
+          ]
+        }
+        { query: "createArtistAlbumQuery" }
+        { query: "createArtistTrackQuery" }
+        { query: "collect" }
+      ]
+    )
 }
 
 type Query {
@@ -10,67 +76,6 @@ type Query {
       endpoint: "https://accounts.spotify.com/api/token?grant_type=client_credentials&client_id=$client_id&client_secret=$client_secret"
       configuration: "spotify_config"
     )
-}
-
-type Query {
-  spotify_Search_With_Token(
-    q: String!
-  ): Spotify_Track
-    @sequence(
-      steps: [
-        { query: "get_auth" }
-        { query: "spotify_Search"
-          arguments: [
-            { name: "q", argument: "q" }
-          ]
-        }        
-      ]
-    )
-}
-
-type Spotify_Track {
-  album: String
-  albumInfo(
-      types: [String] = ["MusicAlbum"]
-    ): [GoogleKnowledgeGraph_Item]
-    @materializer(
-      query: "googleKnowledgeGraph_search"
-      arguments: [
-        { name: "query" field: "album" }
-        { name: "types" argument: "types" }
-      ]
-    )
-  artists: String
-  artistsInfo(
-      types: [String] = ["MusicGroup", "Person"]
-    ): [GoogleKnowledgeGraph_Item]
-    @materializer(
-      query: "googleKnowledgeGraph_search"
-      arguments: [
-        { name: "query" field: "artists" }
-        { name: "types" argument: "types" }
-      ]
-    )
-  track: String
-  trackInfo(
-      types: [String] = ["MusicRecording"]
-    ): [GoogleKnowledgeGraph_Item]
-    @materializer(
-      query: "googleKnowledgeGraph_search"
-      arguments: [
-        { name: "query" field: "track" }
-        { name: "query" field: "artists" }
-        { name: "types" argument: "types" }
-      ]
-    )  
-  duration_ms: Int
-  href: String
-  id: ID!  
-  popularity: Int
-  preview_url: String
-  track_number: Int
-  type: String
-  uri: String
 }
 
 type Query {
@@ -89,21 +94,54 @@ type Query {
       endpoint: "https://api.spotify.com/v1/search?q=$q&type=track"
       headers: [{ name: "Authorization", value: "Bearer $access_token" }]
       setters: [
-        { field: "album", path: "tracks.items[].album.name" }
-        { field: "type", path: "tracks.items[].type" }
-        { field: "uri", path: "tracks.items[].uri" }
-        { field: "href", path: "tracks.href" }
-        { field: "track", path: "tracks.items[].name" }
-        { field: "popularity", path: "tracks.items[].popularity" }
-        { field: "preview_url", path: "tracks.items[].preview_url" }
-        { field: "track_number", path: "tracks.items[].track_number" }
-        { field: "artists", path: "tracks.items[].artists[].name" }
-        { field: "duration_ms", path: "tracks.items[].duration_ms" }
         { field: "id", path: "tracks.items[].id" }
+        { field: "artist", path: "tracks.items[].artists[].name" }
+        { field: "track", path: "tracks.items[].name" }
+        { field: "album", path: "tracks.items[].album.name" }
       ]
       configuration: "spotify_config"
     )
 }
+
+type Query {
+  createArtistAlbumQuery(
+    artist: String
+    album: String
+  ): ArtistAlbum
+    @rest(
+      cel: """
+      function transformREST(s) {
+           var data = {};
+           data['artistAlbum'] = get('artist') + ' ' + get('album');
+           return JSON.stringify(data)
+          }
+      """
+      endpoint: "stepzen:empty"
+    )
+}
+
+type Query {
+  createArtistTrackQuery(
+    artist: String
+    track: String
+  ): ArtistTrack
+    @rest(
+      cel: """
+      function transformREST(s) {
+           var data = {};
+           data['artistTrack'] = get('artist') + ' ' + get('track');
+           return JSON.stringify(data)
+          }
+      """
+      endpoint: "stepzen:empty"
+    )
+}
+
+type Query {
+  collect (id: String, artist: String!, album: String, track: String, artistAlbum: String, artistTrack: String, artistTrackAlbum: String): Spotify_Track
+    @connector (type: "echo")
+}
+
 
 
 
