@@ -143,7 +143,7 @@ type Query {
 }
 
 # createArtistTrackQuery generates another concatenated 
-# query string, for the Knowledge Track query.
+# query string, this time for the Knowledge Track query.
 
 type Query {
   createArtistTrackQuery(
@@ -163,7 +163,7 @@ type Query {
 }
 
 # collect is a helper function that sweeps up fields
-# from three types and returns as a Spotify_Track
+# from three types and returns a single Spotify_Track
 
 type Query {
   collect (
