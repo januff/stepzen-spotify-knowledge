@@ -1,4 +1,4 @@
-# Spotify_Track is the primary return type for the subsequent track search query
+# Spotify_Track is the primary return type. It uses StepZen's @materializer directive to fill in descriptive metadata using Google's Knowledge Graph API.
 
 type Spotify_Track {
   id: ID
