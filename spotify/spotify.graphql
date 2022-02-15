@@ -162,8 +162,9 @@ type Query {
     )
 }
 
-# collect is a helper function that sweeps up fields
-# from three types and returns a single Spotify_Track
+# collect is a helper function that uses the @connector
+# directive to sweep up fields from three types and
+# return a single Spotify_Track
 
 type Query {
   collect (
